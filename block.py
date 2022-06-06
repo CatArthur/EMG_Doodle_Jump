@@ -11,4 +11,4 @@ class Block(pygame.sprite.Sprite):
 
     def draw(self,camera_height):
         self.screen.blit(self.image, (self.rect.x,self.rect.y+camera_height))
-        #pygame.draw.rect(self.screen, (255,0,255), pygame.Rect(self.rect.x, self.rect.y+camera_height, self.rect.width, self.rect.height),1)
+        

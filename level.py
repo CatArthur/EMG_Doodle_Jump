@@ -49,7 +49,7 @@ class Level(pygame.sprite.Sprite):
         if(self.blocks[0].rect.top+self.camera.height>self.SCREEN_HEIGHT):
             self.blocks.remove(self.blocks[0])
         if(self.player.rect.top+self.camera.height>self.SCREEN_HEIGHT):
-            control.dead=True
+            control.death()
 
     def update(self):  
         self.checkBorder() 

@@ -9,10 +9,6 @@ def intersect_x(y,x1,y1,x2,y2):
     b = y2 - k*x2
     return (y-b)/k
 
-def intersect_y(x,x1,y1,x2,y2):
-    k = (y1 - y2) / (x1 - x2)
-    b = y2 - k*x2
-    return k*x+b
 
 def check_collison_top(plr_rect, p_plr_rect, blk_rect):
     if (p_plr_rect.bottom<=blk_rect.top)&(plr_rect.bottom>=blk_rect.top):

@@ -51,7 +51,7 @@ class Player(pygame.sprite.Sprite):
         self.side=side
 
     def update_image(self):
-        if(self.side==1)|(self.side==-1):
+        if self.side!=0:
             self.ground_sprites[0]=self.ground_sprites[self.side]
             self.jump_sprites[0]=self.jump_sprites[self.side]
         self.image=self.ground_sprites[0][abs(self.side)] if self.hasGround else self.jump_sprites[0][abs(self.side)]

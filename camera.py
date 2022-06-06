@@ -1,5 +1,3 @@
-import pygame
-
 class Camera(object):
     def __init__(self, player):
         self.start = player.rect.bottom

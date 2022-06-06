@@ -10,6 +10,7 @@ SCREEN_HEIGHT = 700
 SCREEN_WIDTH = 400
 START_X = SCREEN_WIDTH//2-10
 START_Y = SCREEN_HEIGHT-80
+FPS = 40
 
 screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
 pygame.display.set_caption("Game")
@@ -24,7 +25,6 @@ scoreFont = pygame.font.Font('assets/fonts/pixel.fon', 16)
 deathScreen = pygame.Surface((SCREEN_WIDTH,SCREEN_HEIGHT)) 
 deathScreen.set_alpha(128)
 deathScreen.fill((255,255,255)) 
-deathScreenShown=False 
 
 def showText(font, s, color, x, y, place='c'):
     text=font.render(s, True, color)
@@ -43,25 +43,24 @@ def redraw():
 
 clock=pygame.time.Clock()
 while(True):
-    clock.tick(40)
+    clock.tick(FPS)
     control.events()
     if not control.dead:
-        #control.serialUpdate()
+        #control.updateSerial()
         control.movements(player)
         player.jump() 
         level.update() 
         redraw()
         pygame.display.update()
         deathScreenShown=False 
-    elif not deathScreenShown:
+    else:
         redraw()
         screen.blit(deathScreen, (0,0)) 
+        control.updateRestartTime(FPS)
         showText(deathFont, f'Your score: {level.score()}',(255,0,0), SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 -32)
-        showText(scoreFont, f'Press [Space] to continue',(0,0,0), SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 16)
-        deathScreenShown=True 
+        showText(scoreFont, f'Press [Space] to restart ({int(control.restartTimer)+1} sec)',(0,0,0), SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 16)
         pygame.display.update()
-    else:
-        if(control.reset()):
+        if(control.restartTimer==0):
             player.rect.topleft = (START_X, START_Y)
             level.reset()
             #control.initSerial()
